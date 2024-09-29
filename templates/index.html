@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Travel Itinerary Generator{% endblock %}
+
+{% block content %}
+<h1>Travel Itinerary Generator</h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+                <li class="flash-message">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<form id="itineraryForm">
+    <input type="text" id="location" placeholder="Enter destination" required>
+    <input type="number" id="days" placeholder="Number of days" required min="1">
+    <button type="submit">Generate Itinerary</button>
+</form>
+<div id="itineraryResult"></div>
+{% if current_user.is_authenticated %}
+    <button id="saveItinerary" style="display: none;">Save Itinerary</button>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('itineraryForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const location = document.getElementById('location').value;
+    const days = document.getElementById('days').value;
+    const response = await fetch('/generate_itinerary', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location, days }),
+    });
+    const data = await response.json();
+    let html = '';
+    data.itinerary.forEach(day => {
+        const content = day.content.split('\n').map(line => {
+            if (line.startsWith('-')) {
+                const [category, ...rest] = line.substring(2).split(':');
+                return `<p><strong>${category}:</strong>${rest.join(':')}</p>`;
+            }
+            return `<p>${line}</p>`;
+        }).join('');
+
+        html += `
+            <div class="day-card">
+                <h2>Day ${day.day}</h2>
+                <img src="${day.image_url}" alt="Day ${day.day} activity">
+                <div class="day-content">
+                    ${content}
+                </div>
+            </div>
+        `;
+    });
+    document.getElementById('itineraryResult').innerHTML = html;
+    document.getElementById('saveItinerary').style.display = 'block';
+});
+
+document.getElementById('saveItinerary').addEventListener('click', async () => {
+    const location = document.getElementById('location').value;
+    const days = document.getElementById('days').value;
+    const itinerary = document.getElementById('itineraryResult').innerHTML;
+    const response = await fetch('/save_itinerary', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location, days, itinerary }),
+    });
+    const data = await response.json();
+    alert(data.message);
+});
+</script>
+{% endblock %}

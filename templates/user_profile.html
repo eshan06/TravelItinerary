@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}'s Profile</h1>
+{% if user != current_user %}
+    {% if is_following %}
+        <a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a>
+    {% else %}
+        <a href="{{ url_for('follow', username=user.username) }}">Follow</a>
+    {% endif %}
+{% endif %}
+<h2>Public Itineraries</h2>
+{% if itineraries %}
+    {% for itinerary in itineraries %}
+        <div class="itinerary-card">
+            <h3>{{ itinerary.location }} - {{ itinerary.days }} days</h3>
+            <div class="itinerary-content">
+                {{ itinerary.content | safe }}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No public itineraries available.</p>
+{% endif %}
+{% endblock %}

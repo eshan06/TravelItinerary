@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}My Itineraries{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>My Itineraries</h1>
+    {% if itineraries %}
+        {% for itinerary in itineraries %}
+            <div class="itinerary-card">
+                <h2 onclick="toggleItinerary('{{ itinerary.id }}')">
+                    {{ itinerary.location }} - {{ itinerary.days }} days
+                    <span class="toggle-icon">▼</span>
+                </h2>
+                <div id="itinerary-{{ itinerary.id }}" class="itinerary-content" style="display: none;">
+                    {{ itinerary.content | safe }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't created any itineraries yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function toggleItinerary(id) {
+        const content = document.getElementById(`itinerary-${id}`);
+        const icon = content.previousElementSibling.querySelector('.toggle-icon');
+        if (content.style.display === "none") {
+            content.style.display = "block";
+            icon.textContent = '▲';
+        } else {
+            content.style.display = "none";
+            icon.textContent = '▼';
+        }
+    }
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .itinerary-card h2 {
+        cursor: pointer;
+        user-select: none;
+    }
+    .toggle-icon {
+        float: right;
+        transition: transform 0.3s ease;
+    }
+</style>
+{% endblock %}

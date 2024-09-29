@@ -1,0 +1,198 @@
+body {
+    font-family: 'Lato', Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+    color: #333;
+    padding-top: 80px; /* Adjusted to match header height plus some extra space */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+    /* Remove overflow-y and max-height properties */
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"], input[type="number"], input[type="password"], button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+.day-card, .itinerary-card {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.day-card h2, .itinerary-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.8em;
+}
+
+.day-card img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin: 20px 0;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.day-content, .itinerary-content {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-top: 15px;
+}
+
+.day-content p, .itinerary-content p {
+    margin-bottom: 15px;
+}
+
+.day-content strong, .itinerary-content strong {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.header-bar {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+    border: 1px solid #3498db;
+    width: 90%;
+    max-width: 1200px;
+    padding: 10px 0;
+}
+
+.header-bar .container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+.header-bar nav {
+    display: flex;
+    gap: 20px;
+}
+
+.header-bar a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    font-size: 1em;
+}
+
+.header-bar a:hover {
+    color: #2980b9;
+}
+
+.flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.flash-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.content-wrapper {
+    padding-top: 20px; /* Add some space between the fixed header and the content */
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-top: 70px; /* Adjust for smaller screens */
+    }
+    
+    .header-bar {
+        width: 95%;
+        top: 10px;
+    }
+    
+    /* Remove the container max-height adjustment */
+}
+
+@media (max-width: 768px) {
+    input[type="text"], input[type="number"], input[type="password"], button {
+        width: 100%;
+    }
+}
